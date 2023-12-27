@@ -59,9 +59,10 @@ class Maze_Crawler:
 
 
     def load_maze(self):
-        
+        # Get generated binary 
         rows = self.generate_maze(self.blocks_per_row, self.row_length)
         
+        # Convert generated binary into list of list 
         for i in range(len(rows)):
             self.maze.append([])
         
@@ -72,20 +73,22 @@ class Maze_Crawler:
     
 
     def get_start_coor(self):
+        # Get starting co-ordinate of S as starting position 
         for i in range(len(self.maze)):
             for j in range(len(self.maze[i])):
                 if self.maze[i][j] == 'S':
                     return i, j
-        return (-1, -1)
+        return -1, -1
     
 
     def solve_maze(self, coor: tuple[int, int]):
         x, y = coor
         
-        # Avoid walls and block that has been walked on 
+        # Avoid walls (1) and blocks (X) that has been walked on 
         if self.maze[x][y] == '1' or self.maze[x][y] == 'X':
             return False
         
+        # Check if arrived at target position 
         if self.maze[x][y] == 'E':
             return True
         
@@ -93,6 +96,7 @@ class Maze_Crawler:
         if self.maze[x][y] != 'S':
             self.maze[x][y] = 'X'
         
+        # Moving strategy 
         if self.solve_maze((x+1, y)):
             if self.maze[x][y] != 'S':
                 self.maze[x][y] = 'v'
@@ -118,6 +122,8 @@ class Maze_Crawler:
         for row in range(len(self.maze)): 
             maze_row = self.maze[row]
             for element in range(len(maze_row)): 
+                # Replace X to clean up blocks that we had walked on but not in the final solution
+                # Example are blocks that don't have forward position so need to go backward 
                 if maze_row[element] == "X": 
                     maze_row[element] = "0"
             print(maze_row) 
@@ -126,10 +132,12 @@ class Maze_Crawler:
 if __name__ == "__main__": 
     maze = Maze_Crawler(1, 7)
     # Show Maze current map
+    print("GENERATED MAZE: ")
     maze.load_maze()
     maze.show_maze()
 
     print("\r\n######################################################\r\n")
+    print("SOLUTION: ")
     start = maze.get_start_coor()
     # Show Maze solution 
     maze.solve_maze(start) 

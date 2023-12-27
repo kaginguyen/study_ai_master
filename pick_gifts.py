@@ -15,11 +15,13 @@ def generate_binary_string(n: int):
 
 
 def pick_gifts(n_items: int, n_choices: int): 
+    # Get all possition outcomes of number of choices 
     possible_outcomes = generate_binary_string(n_choices) 
     qualified_outcomes = []
 
     for outcome in possible_outcomes: 
         binary_list = list(outcome)
+        # Only save outcomes that qualified the requirement of number of items picked 
         outcome_total = sum(int(x) for x in binary_list)
         if outcome_total == n_items: 
             qualified_outcomes.append(outcome) 
