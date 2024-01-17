@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "study-ai-master"
+version = "0.1.0"
+description = ""
+authors = ["Loc Nguyen <loc.nguyen14061996@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.1.4"
+matplotlib = "^3.8.2"
+numpy = "^1.26.3"
+scikit-learn = "^1.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
