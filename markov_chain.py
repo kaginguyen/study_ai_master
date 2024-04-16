@@ -1,14 +1,15 @@
-
 import numpy as np
 import random as rm
 
 
+
+# Possible states
 states = ["A","B","C"]
 
 # Possible sequences of states
 state_transition_sequences = [["AA","AB","AC"],["BA","BB","BC"],["CA","CB","CC"]]
 
-# Transition matrix
+# Transition probability matrix
 state_transition_matrix = [[0.2,0.6,0.2],[0.1,0.5,0.4],[0.3,0.3,0.4]]
 
 # Double chek if state_transition_matrix is setup correctly
@@ -23,7 +24,7 @@ for transition in state_transition_matrix:
 state_transition_matrix_parsed = {}
 i = 0 
 
-for i in range(3): 
+for i in range(len(state_transition_sequences)): 
     _states = state_transition_sequences[i]
     _values = state_transition_matrix[i] 
     for j in range(len(_states)):
