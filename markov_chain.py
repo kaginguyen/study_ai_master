@@ -35,8 +35,8 @@ for i in range(len(state_transition_sequences)):
 print("State Transition Matrix: ", state_transition_matrix_parsed)
 
 
-
-def state_forecast(period):
+# Generate a random list based on the given probability and calculate the possibility of having that list
+def state_forecast(period: int):
     # Randomly choose the starting state
     starting_state = np.random.choice(states)
     print("Start state: " + starting_state)
@@ -72,5 +72,32 @@ def state_forecast(period):
     print("Probability of the possible sequence of states: ",  " * ".join(prob_list), " = ", str(prob))
 
 
-# Function that forecasts the possible state for the next 2 periods
 state_forecast(2)
+
+
+
+# Given a starting distribution of samples, what would be the final distribution of them with the given probability 
+states_starting_distribution = [1000, 1000, 1000]
+
+def state_distribution_forecast(starting_distribution: list, period: int):  
+
+    i = 0
+    states_starting_distribution = starting_distribution 
+
+    while i != period: 
+        # Reset after each period 
+        _sample_to_A = 0
+        _sample_to_B = 0
+        _sample_to_C = 0
+
+        for j in range(len(starting_distribution)): 
+            _sample_to_A += states_starting_distribution[j] * state_transition_matrix[j][0]
+            _sample_to_B += states_starting_distribution[j] * state_transition_matrix[j][1]
+            _sample_to_C += states_starting_distribution[j] * state_transition_matrix[j][2]
+        
+        states_starting_distribution = [_sample_to_A, _sample_to_B, _sample_to_C]
+        i += 1
+        print(f"Sample Distribution after {i} periods: ", str(states_starting_distribution))
+
+
+state_distribution_forecast(states_starting_distribution, 10) 
